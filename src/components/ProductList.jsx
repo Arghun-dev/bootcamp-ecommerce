@@ -2,10 +2,11 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Skeleton } from "antd";
 import productsActions from "../redux/products/productsActions";
+import ProductCard from './ProductCard';
 
 const ProductList = () => {
     const dispatch = useDispatch();
-    const {loading, data, error} = useSelector((state) => state.products);
+    const {loading, data, error} = useSelector((store) => store.productsReducer);
 
     useEffect(()=>{
         dispatch(productsActions.getProducts())
@@ -16,7 +17,7 @@ const ProductList = () => {
     if (error) return <div>Something went wrong!!!</div>
 
     if (data.length) {
-        return <div>{data.map((item) => <div key={item.id}>{item.title}</div>)}</div>
+        return <div>{data.map((item) => <ProductCard item={item} />)}</div>
     }
 }
 
