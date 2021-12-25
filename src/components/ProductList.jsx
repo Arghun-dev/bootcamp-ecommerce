@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Skeleton } from "antd";
+import { Skeleton, Row, Col } from "antd";
 import productsActions from "../redux/products/productsActions";
 import ProductCard from './ProductCard';
 
@@ -17,7 +17,15 @@ const ProductList = () => {
     if (error) return <div>Something went wrong!!!</div>
 
     if (data.length) {
-        return <div>{data.map((item) => <ProductCard item={item} />)}</div>
+        return (
+            <Row gutter={[0, 32]}>
+                {data.map((item) => 
+                    <Col xs={24} md={12} lg={6} style={{ display: 'flex', justifyContent: 'center' }}>
+                        <ProductCard item={item} />
+                    </Col>
+                )}
+            </Row>
+    )
     }
 }
 
